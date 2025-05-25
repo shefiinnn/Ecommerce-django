@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,33 +16,34 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            /* Enable horizontal scroll for child elements */
         }
 
         .navbar {
-            background: #333;
-            color: #fff;
-            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .navbar .logo {
-            font-size: 1.5em;
-            font-weight: bold;
+            overflow-x: auto;
+            white-space: nowrap;
+            gap: 1rem;
         }
 
         .navbar ul {
             list-style: none;
-            margin: 0;
-            padding: 0;
             display: flex;
-            gap: 20px;
+            gap: 1rem;
+            padding: 0;
+            margin: 0;
         }
 
         .navbar ul li {
@@ -49,14 +51,13 @@
         }
 
         .navbar ul li a {
-            color: #fff;
+            color: white;
             text-decoration: none;
-            padding: 5px 10px;
-            transition: background-color 0.3s;
+            font-size: 0.9rem;
         }
 
-        .navbar ul li a:hover {
-            background-color: #575757;
+        .navbar ul a:hover {
+            background-color: #858484;
             border-radius: 5px;
         }
 
@@ -67,22 +68,29 @@
 
         table {
             width: 100%;
+            min-width: 600px;
+            /* Forces horizontal scroll on small screens */
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 1rem 0;
         }
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
 
-        th, td {
-            padding: 10px;
+        table th,
+        table td {
             text-align: left;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            font-size: 1rem;
         }
 
-        th {
+        table th {
             background-color: #f4f4f4;
         }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
 
         .total {
             font-size: 1.5em;
@@ -122,8 +130,55 @@
         .continue-shopping:hover {
             background-color: #218838;
         }
+
+        @media (max-width: 768px) {
+            .navbar .logo {
+                font-size: 1.5rem;
+
+            }
+
+            .navbar ul {
+                gap: 0.5rem;
+
+            }
+
+            table th,
+            table td {
+                font-size: 0.9rem;
+                padding: 0.5rem;
+            }
+
+            .action-buttons a,
+            .cancel-btn {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar .logo {
+                font-size: 1rem;
+            }
+
+            .navbar ul li a {
+                font-size: 0.8rem;
+            }
+
+            table th,
+            table td {
+                font-size: 0.75rem;
+                padding: 0.4rem;
+            }
+
+            .action-buttons a,
+            .cancel-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.7rem;
+            }
+        }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <div class="navbar">
@@ -131,7 +186,7 @@
         <ul>
             <li><a href="{% url 'userhm' %}">Products</a></li>
             <li><a href="{% url 'listcart' %}">Cart</a></li>
-            <li><a href="{% url 'orderview' %}">Cart</a></li>
+            <li><a href="{% url 'orderview' %}">Order</a></li>
             <li><a href="{% url 'login' %}">Logout</a></li>
         </ul>
     </div>
@@ -157,8 +212,8 @@
                     <td>{{ item.date|date:"M d, Y" }}</td>
                     <td>{{ item.pid.prname }}</td>
                     <td>
-                        <img src="{{ item.pid.image.url }}" alt="{{ item.pid.prname }}" 
-                             style="width: 50px; height: auto; border-radius: 5px;">
+                        <img src="{{ item.pid.image.url }}" alt="{{ item.pid.prname }}"
+                            style="width: 50px; height: auto; border-radius: 5px;">
                     </td>
                     <td>{{ item.qty }}</td>
                     <td>${{ item.pid.price }}</td>
@@ -173,22 +228,18 @@
                 {% endfor %}
             </tbody>
         </table>
-    
+
         <div class="total">
             <strong>Total: ${{ total_price }}</strong>
         </div>
-    
+
         <!-- Place Order Button -->
         <form method="POST" action="{% url 'listcart' %}">
             {% csrf_token %}
             <button type="submit" class="place-order-button">Place Order</button>
         </form>
-    
+
         <div class="action-buttons">
             <a href="{% url 'userhm' %}" class="continue-shopping">Continue Shopping</a>
         </div>
     </div>
-    
-
-        
-        

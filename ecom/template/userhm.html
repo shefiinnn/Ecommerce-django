@@ -142,7 +142,7 @@
             <div class="card">
                 <img src="{{ product.image.url }}" alt="{{ product.prname }}">
                 <h2>{{ product.prname }}</h2>
-                <p class="price">${{ product.price }}</p>
+                <p class="price">₹{{ product.price }}</p>
                 <p>{{ product.description|truncatewords:15 }}</p>
                 <a href="{% url 'productdet' id=product.id %}">
                     <button type="submit">Details</button>
