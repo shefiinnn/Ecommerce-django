@@ -52,7 +52,7 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = 'ecom.urls'
+ROOT_URLCONF = 'shoezo.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecom.wsgi.application'
+WSGI_APPLICATION = 'shoezo.wsgi.application'
 
 
 # Database
