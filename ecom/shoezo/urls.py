@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ecom import settings
+from  shoezo import settings
 import app1.views
 from django.conf.urls.static import static
 
